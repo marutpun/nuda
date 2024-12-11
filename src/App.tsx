@@ -3,6 +3,7 @@ import './App.css';
 import { Header } from './components/Header';
 import { Carousell } from './components/Carousell';
 import { DatePicker } from './components/DatePicker';
+import { TermNCond } from './components/TermNCond';
 import { Footer } from './components/Footer';
 
 export default function App() {
@@ -11,9 +12,10 @@ export default function App() {
       <Header />
       <main className="content container">
         <Carousell />
-        <div className="mt-5 d-flex flex-wrap flex-row justify-content-center">
+        <div className="mt-5">
           <DatePicker />
         </div>
+        <TermNCond />
       </main>
       <Footer />
     </div>
