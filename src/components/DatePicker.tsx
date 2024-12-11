@@ -7,7 +7,7 @@ export function DatePicker() {
 
   const rangeOneNight: DateRange = {
     from: new Date(),
-    to: new Date(new Date().setDate(new Date().getDate() + 1)),
+    // to: new Date(new Date().setDate(new Date().getDate() + 1)),
   };
 
   // Calculate nights only if both `from` and `to` are defined
@@ -48,7 +48,7 @@ export function DatePicker() {
             : 'Please select date. (Maximum 5 nights)'
         }
       />
-      <button className="btn btn-primary" disabled={!selectedRange || !selectedRange.from || !selectedRange.to}>
+      <button className="btn btn-primary align-self-center" disabled={!selectedRange || !selectedRange.from || !selectedRange.to} style={{ width: 'auto' }}>
         Book {calculateNights()} night(s)
       </button>
     </div>
