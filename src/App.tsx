@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-day-picker/style.css';
 import './App.css';
 import { Header } from './components/Header';
 import { Carousell } from './components/Carousell';

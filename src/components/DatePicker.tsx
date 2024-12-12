@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { DayPicker, DateRange } from 'react-day-picker';
-import 'react-day-picker/style.css';
 
 export function DatePicker() {
   const [selectedRange, setSelectedRange] = useState<DateRange | undefined>();
@@ -30,6 +29,7 @@ export function DatePicker() {
   return (
     <div className="d-flex flex-column gap-2">
       <DayPicker
+        numberOfMonths={2}
         mode="range"
         min={1}
         max={5}
