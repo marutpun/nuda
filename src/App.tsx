@@ -1,23 +1,20 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-day-picker/style.css';
+import { Routes, Route } from 'react-router';
 import './App.css';
 import { Header } from './components/Header';
-import { Carousell } from './components/Carousell';
-import { DatePicker } from './components/DatePicker';
-import { TermNCond } from './components/TermNCond';
 import { Footer } from './components/Footer';
+import IndexPage from './pages/IndexPage';
+import ReservePage from './pages/ReservePage';
 
 export default function App() {
   return (
     <div className="grid-app" role="presentation">
       <Header />
-      <main className="content container">
-        <Carousell />
-        <div className="mt-5">
-          <DatePicker />
-        </div>
-        <TermNCond />
-      </main>
+      <Routes>
+        <Route path="/" element={<IndexPage />} />
+        <Route path="/reserve" element={<ReservePage />} />
+      </Routes>
       <Footer />
     </div>
   );
