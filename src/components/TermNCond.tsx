@@ -42,7 +42,7 @@ export function TermNCond() {
   return (
     <>
       <button type="button" className="btn btn-link" onClick={handleShow}>
-        Read Terms and Conditions
+        Terms and Conditions
       </button>
 
       <div className="modal fade" ref={modalRef} tabIndex={-1} aria-labelledby="terms-conditions" aria-hidden="true">

@@ -1,29 +1,25 @@
 import { useState } from 'react';
 import { DayPicker, DateRange } from 'react-day-picker';
+import { calculateNights } from '../utils';
+import { useBookingStore } from '../context/booking';
+import { useNavigate } from 'react-router';
 
 export function DatePicker() {
+  const navigate = useNavigate();
   const [selectedRange, setSelectedRange] = useState<DateRange | undefined>();
+  const { checkinDate, checkoutDate, setCheckinDate, setCheckoutDate } = useBookingStore((state) => state);
 
   const rangeOneNight: DateRange = {
-    from: new Date(),
-    // to: new Date(new Date().setDate(new Date().getDate() + 1)),
+    from: checkinDate ? new Date(checkinDate) : new Date(), // Fallback to current date if not available
+    to: checkoutDate ? new Date(checkoutDate) : new Date(), // Fallback to current date if not available
   };
 
-  // Calculate nights only if both `from` and `to` are defined
-  const calculateNights = () => {
+  const _handleClickReserve = () => {
     if (selectedRange && selectedRange.from && selectedRange.to) {
-      const fromDate = new Date(selectedRange.from);
-      fromDate.setHours(0, 0, 0, 0);
-
-      const toDate = new Date(selectedRange.to);
-      toDate.setHours(0, 0, 0, 0);
-
-      const timeDiff = toDate.getTime() - fromDate.getTime();
-      const nights = timeDiff / (1000 * 60 * 60 * 24);
-
-      return Math.floor(nights);
+      setCheckinDate(selectedRange.from.toISOString());
+      setCheckoutDate(selectedRange.to.toISOString());
     }
-    return 0; // Default to 0 if no range is selected
+    navigate('/reserve');
   };
 
   return (
@@ -32,24 +28,24 @@ export function DatePicker() {
         numberOfMonths={2}
         mode="range"
         min={1}
-        max={5}
+        max={6}
         selected={selectedRange || rangeOneNight}
         onSelect={setSelectedRange}
         disabled={{ before: new Date() }}
         footer={
           selectedRange && selectedRange.from && selectedRange.to
             ? `${selectedRange.from.toLocaleDateString('en-GB', {
-                day: '2-digit',
+                day: 'numeric',
               })} - ${selectedRange.to.toLocaleDateString('en-GB', {
-                day: '2-digit',
+                day: 'numeric',
                 month: 'long',
                 year: 'numeric',
-              })}. Total ${calculateNights()} night(s)`
-            : 'Please select date. (Maximum 5 nights)'
+              })}. Total ${calculateNights(selectedRange)} night(s)`
+            : 'Please select date. Maximum 6 nights'
         }
       />
-      <button className="btn btn-primary align-self-center" disabled={!selectedRange || !selectedRange.from || !selectedRange.to} style={{ width: 'auto' }}>
-        Book {calculateNights()} night(s)
+      <button className="btn btn-primary align-self-center" disabled={!selectedRange || !selectedRange.from || !selectedRange.to} style={{ width: 'auto' }} onClick={_handleClickReserve}>
+        Book {calculateNights(selectedRange)} night(s)
       </button>
     </div>
   );
