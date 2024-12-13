@@ -6,6 +6,7 @@ import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import IndexPage from './pages/IndexPage';
 import ReservePage from './pages/ReservePage';
+import ConfirmPage from './pages/ConfirmPage';
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<IndexPage />} />
         <Route path="/reserve" element={<ReservePage />} />
+        <Route path="/thank-you" element={<ConfirmPage />} />
       </Routes>
       <Footer />
     </div>

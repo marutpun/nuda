@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router';
 export function DatePicker() {
   const navigate = useNavigate();
   const [selectedRange, setSelectedRange] = useState<DateRange | undefined>();
-  const { checkinDate, checkoutDate, setCheckinDate, setCheckoutDate } = useBookingStore((state) => state);
+  const { checkinDate, checkoutDate, setCheckinDate, setCheckoutDate, setNight } = useBookingStore((state) => state);
 
   const rangeOneNight: DateRange = {
     from: checkinDate ? new Date(checkinDate) : new Date(), // Fallback to current date if not available
@@ -18,6 +18,7 @@ export function DatePicker() {
     if (selectedRange && selectedRange.from && selectedRange.to) {
       setCheckinDate(selectedRange.from.toISOString());
       setCheckoutDate(selectedRange.to.toISOString());
+      setNight(calculateNights(selectedRange));
     }
     navigate('/reserve');
   };
